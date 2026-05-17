@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bookzwang — Rare & Secondhand Chess Books</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #111;
+      --white: #fafafa;
+      --grey-light: #e8e8e8;
+      --grey-mid: #999;
+      --grey-dark: #444;
+      --accent: #111;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ───── TOPBAR ───── */
+    .topbar {
+      background: var(--black);
+      color: var(--white);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 8px 20px;
+    }
+
+    /* ───── SITE HEADER ───── */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 60px;
+      border-bottom: 1px solid var(--grey-light);
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 300;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+    }
+    .logo span { font-style: italic; font-weight: 400; }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .header-right a {
+      text-decoration: none;
+      color: var(--black);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: opacity .2s;
+    }
+    .header-right a:hover { opacity: .45; }
+
+    .search-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+    .search-btn svg { stroke: var(--black); width: 18px; height: 18px; }
+
+    /* ───── CATEGORY NAV ───── */
+    .cat-nav {
+      border-bottom: 1px solid var(--grey-light);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+    .cat-nav a {
+      text-decoration: none;
+      color: var(--grey-dark);
+      font-size: 10.5px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 14px 26px;
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    .cat-nav a:hover,
+    .cat-nav a.active {
+      color: var(--black);
+      border-bottom-color: var(--black);
+    }
+
+    /* ───── HERO ───── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+    }
+
+    .hero-image {
+      background: var(--grey-light);
+      position: relative;
+      overflow: hidden;
+      min-height: 560px;
+    }
+    .hero-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+    }
+    .hero-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #d0d0d0 0%, #e8e8e8 50%, #c8c8c8 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #aaa;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      min-height: 560px;
+    }
+    .hero-placeholder svg { width: 48px; height: 48px; stroke: #bbb; opacity: .7; }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 70px;
+      background: var(--black);
+      color: var(--white);
+    }
+    .hero-text .eyebrow {
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 22px;
+    }
+    .hero-text h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 54px;
+      font-weight: 300;
+      line-height: 1.12;
+      margin-bottom: 26px;
+    }
+    .hero-text h1 em {
+      font-style: italic;
+      font-weight: 400;
+    }
+    .hero-text p {
+      font-size: 13px;
+      font-weight: 300;
+      color: #aaa;
+      line-height: 1.75;
+      max-width: 360px;
+      margin-bottom: 40px;
+    }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: 14px 36px;
+      border: 1px solid var(--white);
+      color: var(--white);
+      transition: background .2s, color .2s;
+      align-self: flex-start;
+    }
+    .btn:hover { background: var(--white); color: var(--black); }
+
+    .btn-dark {
+      border-color: var(--black);
+      color: var(--black);
+    }
+    .btn-dark:hover { background: var(--black); color: var(--white); }
+
+    /* ───── SECTION HEADER ───── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: .04em;
+    }
+    .section-link {
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--grey-mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--grey-light);
+      padding-bottom: 2px;
+      transition: color .2s, border-color .2s;
+    }
+    .section-link:hover { color: var(--black); border-color: var(--black); }
+
+    /* ───── DIVIDER ───── */
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--black);
+      margin: 14px 0 28px;
+    }
+
+    /* ───── BOOK GRID ───── */
+    .section { padding: 72px 60px; }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px 24px;
+    }
+
+    .book-card {
+      cursor: pointer;
+    }
+    .book-card:hover .book-thumb { transform: scale(1.02); }
+    .book-thumb-wrap {
+      overflow: hidden;
+      background: var(--grey-light);
+      aspect-ratio: 3/4;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .book-thumb {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      display: block;
+      transition: transform .4s ease;
+    }
+    .book-thumb-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(160deg, #e2e2e2, #d0d0d0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #bbb;
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: transform .4s ease;
+    }
+    .book-thumb-placeholder svg { width: 32px; height: 32px; stroke: #ccc; }
+
+    .book-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 8.5px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+    }
+
+    .book-category {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--grey-mid);
+      margin-bottom: 6px;
+    }
+    .book-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .book-author {
+      font-size: 11px;
+      color: var(--grey-mid);
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+    .book-price {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .06em;
+    }
+    .book-condition {
+      font-size: 9.5px;
+      color: var(--grey-mid);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* ───── CATEGORIES BAND ───── */
+    .cat-band {
+      background: var(--black);
+      color: var(--white);
+      padding: 64px 60px;
+    }
+    .cat-band .section-title { color: var(--white); margin-bottom: 8px; }
+    .cat-band .divider { background: #555; }
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .cat-card {
+      border: 1px solid #2a2a2a;
+      padding: 28px 16px 22px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--white);
+      transition: border-color .2s, background .2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .cat-card:hover { border-color: #666; background: #1a1a1a; }
+    .cat-card svg { width: 28px; height: 28px; stroke: #666; transition: stroke .2s; }
+    .cat-card:hover svg { stroke: var(--white); }
+    .cat-card .cat-name {
+      font-size: 9.5px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #aaa;
+    }
+    .cat-card .cat-count {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      color: #555;
+    }
+
+    /* ───── FEATURED BANNER ───── */
+    .featured-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .feat-img {
+      background: #ccc;
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+    }
+    .feat-img-placeholder {
+      width: 100%; height: 100%;
+      min-height: 420px;
+      background: linear-gradient(135deg, #c8c8c8, #e0e0e0);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+      color: #aaa; font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    }
+    .feat-img-placeholder svg { width: 44px; height: 44px; stroke: #bbb; }
+    .feat-text {
+      padding: 70px 64px;
+      border: 1px solid var(--grey-light);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .feat-text .eyebrow {
+      font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--grey-mid); margin-bottom: 18px;
+    }
+    .feat-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px; font-weight: 300; line-height: 1.15; margin-bottom: 20px;
+    }
+    .feat-text p {
+      font-size: 13px; color: var(--grey-dark); line-height: 1.75;
+      margin-bottom: 36px; max-width: 380px;
+    }
+
+    /* ───── FOOTER ───── */
+    .footer-band {
+      background: var(--black);
+      color: #888;
+      padding: 56px 60px 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid #222;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 300;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .footer-logo span { font-style: italic; }
+    .footer-desc {
+      font-size: 12px; line-height: 1.75; color: #666; max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--white); margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a {
+      text-decoration: none; color: #666; font-size: 12px;
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      padding-top: 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-bottom p { font-size: 11px; color: #444; letter-spacing: .06em; }
+
+    /* ───── RESPONSIVE ───── */
+    @media (max-width: 1100px) {
+      .book-grid { grid-template-columns: repeat(3, 1fr); }
+      .cat-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-image { min-height: 300px; }
+      .hero-placeholder { min-height: 300px; }
+      .hero-text { padding: 50px 36px; }
+      .hero-text h1 { font-size: 38px; }
+      .site-header { padding: 18px 24px; }
+      .section { padding: 48px 24px; }
+      .cat-band { padding: 48px 24px; }
+      .book-grid { grid-template-columns: repeat(2, 1fr); }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .featured-banner { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-band { padding: 40px 24px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    Worldwide shipping &nbsp;·&nbsp; Secure payment &nbsp;·&nbsp; Carefully described condition
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="#" class="logo">Book<span>zwang</span></a>
+
+    <nav class="header-right">
+      <a href="#">New Arrivals</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <button class="search-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <!-- CATEGORY NAV -->
+  <nav class="cat-nav">
+    <a href="#" class="active">All Books</a>
+    <a href="#">Opening</a>
+    <a href="#">Tournament</a>
+    <a href="#">Biography</a>
+    <a href="#">Endgame</a>
+    <a href="#">Tactics</a>
+    <a href="#">History</a>
+    <a href="#">Middlegame</a>
+    <a href="#">Strategy</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-image">
+      <div class="hero-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="1"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        Featured book image
+      </div>
+    </div>
+    <div class="hero-text">
+      <p class="eyebrow">Featured</p>
+      <h1>The Art of<br/><em>Chess Mastery</em></h1>
+      <p>A curated selection of rare and out-of-print chess books — from opening theory to grandmaster biographies. Each volume personally described and carefully dispatched.</p>
+      <a href="#" class="btn">Browse Collection</a>
+    </div>
+  </section>
+
+  <!-- NEW ARRIVALS -->
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">New Arrivals</h2>
+        <div class="divider"></div>
+      </div>
+      <a href="#" class="section-link">View all →</a>
+    </div>
+
+    <div class="book-grid">
+
+      <!-- Card 1 -->
+      <div class="book-card">
+        <div class="book-thumb-wrap">
+          <div class="book-thumb-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            Book cover
+          </div>
+          <span class="book-badge">New</span>
+        </div>
+        <p class="book-category">Opening</p>
+        <h3 class="book-title">My System</h3>
+        <p class="book-author">Nimzowitsch, A.</p>
+        <p class="book-price">€ 28.00</p>
+        <p class="book-condition">Very Good</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="book-card">
+        <div class="book-thumb-wrap">
+          <div class="book-thumb-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            Book cover
+          </div>
+        </div>
+        <p class="book-category">Biography</p>
+        <h3 class="book-title">Tal — Life and Games</h3>
+        <p class="book-author">Tal, M.</p>
+        <p class="book-price">€ 45.00</p>
+        <p class="book-condition">Good</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="book-card">
+        <div class="book-thumb-wrap">
+          <div class="book-thumb-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            Book cover
+          </div>
+          <span class="book-badge">Rare</span>
+        </div>
+        <p class="book-category">Tournament</p>
+        <h3 class="book-title">Zurich International Chess Tournament 1953</h3>
+        <p class="book-author">Bronstein, D.</p>
+        <p class="book-price">€ 62.00</p>
+        <p class="book-condition">Good — ex library</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="book-card">
+        <div class="book-thumb-wrap">
+          <div class="book-thumb-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            Book cover
+          </div>
+        </div>
+        <p class="book-category">Endgame</p>
+        <h3 class="book-title">Rook Endings</h3>
+        <p class="book-author">Levenfish & Smyslov</p>
+        <p class="book-price">€ 34.00</p>
+        <p class="book-condition">Very Good</p>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="book-card">
+        <div class="book-thumb-wrap">
+          <div class="book-thumb-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            Book cover
+          </div>
+          <span class="book-badge">New</span>
+        </div>
+        <p class="book-category">Tactics</p>
+        <h3 class="book-title">The Art of Attack in Chess</h3>
+        <p class="book-author">Vukovic, V.</p>
+        <p class="book-price">€ 22.00</p>
+        <p class="book-condition">Fine</p>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="book-card">
+        <div class="book-thumb-wrap">
+          <div class="book-thumb-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            Book cover
+          </div>
+        </div>
+        <p class="book-category">History</p>
+        <h3 class="book-title">A History of Chess</h3>
+        <p class="book-author">Murray, H.J.R.</p>
+        <p class="book-price">€ 85.00</p>
+        <p class="book-condition">Good</p>
+      </div>
+
+      <!-- Card 7 -->
+      <div class="book-card">
+        <div class="book-thumb-wrap">
+          <div class="book-thumb-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            Book cover
+          </div>
+        </div>
+        <p class="book-category">Opening</p>
+        <h3 class="book-title">The Sicilian Defence</h3>
+        <p class="book-author">Keres, P.</p>
+        <p class="book-price">€ 18.00</p>
+        <p class="book-condition">Good</p>
+      </div>
+
+      <!-- Card 8 -->
+      <div class="book-card">
+        <div class="book-thumb-wrap">
+          <div class="book-thumb-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            Book cover
+          </div>
+          <span class="book-badge">Rare</span>
+        </div>
+        <p class="book-category">Biography</p>
+        <h3 class="book-title">Fischer / Spassky — The Match</h3>
+        <p class="book-author">Evans, L.</p>
+        <p class="book-price">€ 38.00</p>
+        <p class="book-condition">Very Good</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CATEGORIES BAND -->
+  <div class="cat-band">
+    <h2 class="section-title">Browse by Category</h2>
+    <div class="divider"></div>
+
+    <div class="cat-grid">
+      <a href="#" class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+        <span class="cat-name">Opening</span>
+        <span class="cat-count">142</span>
+      </a>
+      <a href="#" class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span class="cat-name">Tournament</span>
+        <span class="cat-count">87</span>
+      </a>
+      <a href="#" class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span class="cat-name">Biography</span>
+        <span class="cat-count">63</span>
+      </a>
+      <a href="#" class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="2"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="8" x2="12" y2="16"/>
+        </svg>
+        <span class="cat-name">Endgame</span>
+        <span class="cat-count">118</span>
+      </a>
+      <a href="#" class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <span class="cat-name">Tactics</span>
+        <span class="cat-count">209</span>
+      </a>
+      <a href="#" class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span class="cat-name">History</span>
+        <span class="cat-count">74</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- FEATURED BOOK BANNER -->
+  <section class="featured-banner">
+    <div class="feat-img">
+      <div class="feat-img-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="1"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        Interior / detail image
+      </div>
+    </div>
+    <div class="feat-text">
+      <p class="eyebrow">Editor's Pick</p>
+      <h2>Bronstein's<br/><em>Zurich 1953</em></h2>
+      <div class="divider"></div>
+      <p>Considered by many the greatest chess tournament book ever written. Bronstein annotates every game from the 1953 Candidates Tournament with deep insight and literary flair. This copy is in good condition with the original dust jacket.</p>
+      <a href="#" class="btn btn-dark">View Details</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-band">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Book<span>zwang</span></div>
+        <p class="footer-desc">A personal collection of rare and secondhand chess books, offered with care. Each book is individually described. Worldwide shipping.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Browse</h4>
+        <ul>
+          <li><a href="#">Opening</a></li>
+          <li><a href="#">Tournament</a></li>
+          <li><a href="#">Biography</a></li>
+          <li><a href="#">Endgame</a></li>
+          <li><a href="#">Tactics</a></li>
+          <li><a href="#">History</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Condition Guide</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">Email Us</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Bookzwang. All rights reserved.</p>
+      <p>Rare &amp; Secondhand Chess Books</p>
+    </div>
+  </footer>
+
+</body>
+</html>
