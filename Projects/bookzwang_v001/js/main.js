@@ -3,49 +3,18 @@ const QUOTES = [
   { text: "The blunders are all there on the board, waiting to be made.",       author: "Savielly Tartakower" },
   { text: "A good player is always lucky.",                                     author: "José Raúl Capablanca" },
   { text: "Chess is the art of analysis.",                                      author: "Mikhail Botvinnik" },
-  { text: "Of chess it has been said that life is not long enough for it.",     author: "Henry Bird" },
   { text: "The hardest game to win is a won game.",                             author: "Emanuel Lasker" },
   { text: "Chess is everything: art, science, and sport.",                      author: "Anatoly Karpov" },
   { text: "Even a poor plan is better than no plan at all.",                    author: "Mikhail Chigorin" },
   { text: "To avoid losing a piece, many a person has lost the game.",          author: "Savielly Tartakower" },
-  { text: "Chess is not about the next move, but the idea behind the move.",    author: "Alexander Kotov" },
 ];
 
 const RECENT_DAYS = 60;
 
-/* ── Quotes ── */
-let quoteIndex = 0;
-const elText   = document.getElementById('quoteText');
-const elAuthor = document.getElementById('quoteAuthor');
-
-function showQuote(i) {
-  elText.classList.remove('visible');
-  elAuthor.classList.remove('visible');
-  setTimeout(() => {
-    elText.textContent   = '“' + QUOTES[i].text + '”';
-    elAuthor.textContent = '— ' + QUOTES[i].author;
-    elText.classList.add('visible');
-    elAuthor.classList.add('visible');
-  }, 600);
-}
-
-showQuote(0);
-setInterval(() => {
-  quoteIndex = (quoteIndex + 1) % QUOTES.length;
-  showQuote(quoteIndex);
-}, 7000);
-
-/* ── Nav on scroll ── */
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
-
-/* ── Category photos → filter + scroll ── */
+/* ── Category photos → scroll to books and filter ── */
 document.querySelectorAll('.cat-item').forEach(item => {
   item.addEventListener('click', () => {
-    const cat = item.dataset.cat;
-    activateFilter(cat);
+    activateFilter(item.dataset.cat);
     document.getElementById('books').scrollIntoView({ behavior: 'smooth' });
   });
 });
@@ -69,8 +38,7 @@ function activateFilter(cat) {
 /* ── Helpers ── */
 function isRecent(dateStr) {
   if (!dateStr) return false;
-  const diff = (Date.now() - new Date(dateStr)) / 86400000;
-  return diff <= RECENT_DAYS;
+  return (Date.now() - new Date(dateStr)) / 86400000 <= RECENT_DAYS;
 }
 
 function fmtDate(dateStr) {
@@ -80,8 +48,15 @@ function fmtDate(dateStr) {
   });
 }
 
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 /* ── Table rendering ── */
-let allBooks     = [];
+let allBooks      = [];
 let currentFilter = 'all';
 
 function renderTable(books) {
@@ -122,22 +97,19 @@ function renderTable(books) {
   }).join('');
 }
 
-function esc(str) {
-  if (!str) return '';
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-/* ── Load CSV ── */
+/* ── Load CSV via PapaParse (requires HTTP server, not file://) ── */
 Papa.parse('books.csv', {
   download: true,
   header: true,
   skipEmptyLines: true,
-  complete: results => {
+  complete(results) {
     allBooks = results.data;
     renderTable(allBooks);
   },
-  error: () => {
+  error() {
     document.getElementById('books-tbody').innerHTML =
-      `<tr><td colspan="9" class="no-results">Could not load book list.</td></tr>`;
+      `<tr><td colspan="9" class="no-results">
+        Could not load book list. Open the site via <strong>start-server.bat</strong> instead of opening the HTML file directly.
+      </td></tr>`;
   }
 });
