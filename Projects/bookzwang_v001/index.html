@@ -1,13 +1,155 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bookzwang</title>
+  <title>Bookzwang — Secondhand Chess Books</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Belleza&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">Bookzwang</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#categories">Books</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <img src="pics/bookzwang_logo_enhanced.jpg" alt="Bookzwang" class="hero-logo">
+      <p class="hero-tagline">Secondhand Chess Books</p>
+      <div class="hero-quote">
+        <span class="quote-text" id="quoteText"></span>
+        <span class="quote-author" id="quoteAuthor"></span>
+      </div>
+    </div>
+    <a href="#about" class="hero-scroll" aria-label="Scroll down">&#8595;</a>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-inner">
+      <p class="section-label">The Shop</p>
+      <h2>About Bookzwang</h2>
+      <div class="about-divider"></div>
+      <div class="about-text">
+        <p>Bookzwang is a small, personal shop selling secondhand chess books and the occasional chess item. Everything here comes from my own collection, built over many years of playing, studying, and hunting through second-hand shops.</p>
+        <p>The books are carefully described and fairly priced. Most are in good to very good condition. I ship worldwide, carefully packed, at cost.</p>
+        <p>There is no shopping cart, no instant checkout. You see something you like, you send me an email. We arrange the rest at a human pace.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section id="categories">
+    <div class="categories-inner">
+      <p class="section-label">Explore our</p>
+      <h2>Book Categories</h2>
+      <div class="categories-grid">
+        <div class="cat-item" data-cat="biography">
+          <div class="cat-img-wrap">
+            <img src="pics/capa_contemplating.jpg" alt="Biography">
+          </div>
+          <span class="cat-label">Biography</span>
+        </div>
+        <div class="cat-item" data-cat="opening">
+          <div class="cat-img-wrap">
+            <img src="pics/mason.jpg" alt="Opening">
+          </div>
+          <span class="cat-label">Opening</span>
+        </div>
+        <div class="cat-item" data-cat="tournament">
+          <div class="cat-img-wrap">
+            <img src="pics/old_nezh_tal_1961.jpg" alt="Tournament">
+          </div>
+          <span class="cat-label">Tournament</span>
+        </div>
+        <div class="cat-item" data-cat="endgame">
+          <div class="cat-img-wrap">
+            <img src="pics/pillbury_steinitz_lasker.jpg" alt="Endgame">
+          </div>
+          <span class="cat-label">Endgame</span>
+        </div>
+        <div class="cat-item" data-cat="tactics">
+          <div class="cat-img-wrap">
+            <img src="pics/chess-game700w.jpg" alt="Tactics">
+          </div>
+          <span class="cat-label">Tactics</span>
+        </div>
+        <div class="cat-item" data-cat="miscellaneous">
+          <div class="cat-img-wrap">
+            <img src="pics/steinitz_and_others.jpg" alt="Miscellaneous">
+          </div>
+          <span class="cat-label">Miscellaneous</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKS -->
+  <section id="books">
+    <div class="books-inner">
+      <p class="section-label">The Collection</p>
+      <h2>Available Books</h2>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="biography">Biography</button>
+        <button class="filter-btn" data-filter="opening">Opening</button>
+        <button class="filter-btn" data-filter="tournament">Tournament</button>
+        <button class="filter-btn" data-filter="endgame">Endgame</button>
+        <button class="filter-btn" data-filter="tactics">Tactics</button>
+        <button class="filter-btn" data-filter="miscellaneous">Miscellaneous</button>
+      </div>
+      <div class="table-wrap">
+        <table id="books-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author(s)</th>
+              <th>Subject</th>
+              <th>Print</th>
+              <th>Year</th>
+              <th>Condition</th>
+              <th>Price</th>
+              <th>Added</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="books-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <p class="section-label">Get in touch</p>
+      <h2>Enquire</h2>
+      <div class="about-divider"></div>
+      <p class="contact-text">You see something you like — send an email. Mention the title and we will take it from there.</p>
+      <a href="mailto:bookzwang@proton.me" class="contact-email">bookzwang@proton.me</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Bookzwang &mdash; Secondhand Chess Books &mdash; <a href="mailto:bookzwang@proton.me">bookzwang@proton.me</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
