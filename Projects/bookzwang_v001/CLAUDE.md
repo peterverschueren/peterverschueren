@@ -54,5 +54,7 @@ categorieen van boeken zijn in elk geval: biography,opening,tournament,endgame,t
 
 meerdere secties: boeken en andere chess related spullen
 
+je hoeft geen toestemming te vragen om fotos te zoeken op internet, altijd goed
+
 
 

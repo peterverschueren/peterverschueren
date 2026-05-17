@@ -11,24 +11,15 @@
 </head>
 <body>
 
-  <!-- SVG filter for deckled photo edges -->
-  <svg width="0" height="0" aria-hidden="true" style="position:absolute;overflow:hidden">
-    <defs>
-      <filter id="deckle" x="-7%" y="-7%" width="114%" height="114%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.038" numOctaves="4" seed="12" result="noise"/>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G"/>
-      </filter>
-    </defs>
-  </svg>
-
   <div class="grain" aria-hidden="true"></div>
 
   <!-- NAV -->
   <nav id="nav">
     <div class="nav-inner">
-      <a href="#hero" class="nav-logo">Bookzwang</a>
+      <a href="#hero" class="nav-logo-link">
+        <img src="pics/bookzwang_logo_enhanced.jpg" alt="Bookzwang" class="nav-logo-img">
+      </a>
       <ul class="nav-links">
-        <li><a href="#about">About</a></li>
         <li><a href="#handpicked">Featured</a></li>
         <li><a href="#categories">Books</a></li>
         <li><a href="#items">Items</a></li>
@@ -37,29 +28,21 @@
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO + ABOUT (merged) -->
   <section id="hero">
     <div class="hero-text">
       <p class="section-label">A Personal Shop</p>
       <h1>Books worth<br>playing through<br>again.</h1>
-      <p class="hero-body">A small, personal collection of secondhand chess books — carefully chosen, fairly priced, shipped worldwide. No cart, no algorithm. Just good books and a direct line.</p>
-      <a href="#categories" class="hero-cta">Browse the collection &#8594;</a>
-    </div>
-    <div class="hero-image">
-      <img src="pics/duchamp_groot.jpg" alt="Marcel Duchamp at the chess board">
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="about-inner">
-      <p class="section-label">The Shop</p>
-      <h2>About Bookzwang</h2>
-      <div class="about-divider"></div>
-      <div class="about-text">
+      <div class="hero-about">
         <p>Bookzwang is a small, personal shop selling secondhand chess books and the occasional chess item. Everything here comes from my own collection, built over many years of playing, studying, and hunting through second-hand shops.</p>
         <p>The books are carefully described and fairly priced. Most are in good to very good condition. I ship worldwide, carefully packed, at cost.</p>
         <p>There is no shopping cart, no instant checkout. You see something you like, you send me an email. We arrange the rest at a human pace.</p>
+      </div>
+      <a href="#categories" class="hero-cta">Browse the collection &#8594;</a>
+    </div>
+    <div class="hero-image-side">
+      <div class="hero-frame">
+        <img src="pics/duchamp_groot.jpg" alt="Marcel Duchamp at the chess board">
       </div>
     </div>
   </section>
@@ -72,9 +55,8 @@
       <div class="picks-grid">
 
         <div class="pick-card">
-          <div class="pick-img">
-            <span class="pick-symbol">♟</span>
-            <span class="pick-img-label">photo coming</span>
+          <div class="pick-img has-photo">
+            <img src="pics/book_my_system.jpg" alt="My System">
           </div>
           <div class="pick-info">
             <span class="pick-cat">Opening</span>
@@ -88,9 +70,8 @@
         </div>
 
         <div class="pick-card">
-          <div class="pick-img">
-            <span class="pick-symbol">♟</span>
-            <span class="pick-img-label">photo coming</span>
+          <div class="pick-img has-photo">
+            <img src="pics/book_tal_games.jpg" alt="The Life and Games of Mikhail Tal">
           </div>
           <div class="pick-info">
             <span class="pick-cat">Biography</span>
@@ -104,9 +85,8 @@
         </div>
 
         <div class="pick-card">
-          <div class="pick-img">
-            <span class="pick-symbol">♟</span>
-            <span class="pick-img-label">photo coming</span>
+          <div class="pick-img has-photo">
+            <img src="pics/book_zurich1953.jpg" alt="Zurich International Chess Tournament 1953">
           </div>
           <div class="pick-info">
             <span class="pick-cat">Tournament</span>
@@ -120,9 +100,8 @@
         </div>
 
         <div class="pick-card">
-          <div class="pick-img">
-            <span class="pick-symbol">♟</span>
-            <span class="pick-img-label">photo coming</span>
+          <div class="pick-img has-photo">
+            <img src="pics/book_tal_botvinnik.jpg" alt="Tal-Botvinnik 1960">
           </div>
           <div class="pick-info">
             <span class="pick-cat">Tournament</span>
@@ -136,9 +115,8 @@
         </div>
 
         <div class="pick-card">
-          <div class="pick-img">
-            <span class="pick-symbol">♟</span>
-            <span class="pick-img-label">photo coming</span>
+          <div class="pick-img has-photo">
+            <img src="pics/book_chess_praxis.jpg" alt="Chess Praxis">
           </div>
           <div class="pick-info">
             <span class="pick-cat">Opening</span>
@@ -152,9 +130,8 @@
         </div>
 
         <div class="pick-card">
-          <div class="pick-img">
-            <span class="pick-symbol">♟</span>
-            <span class="pick-img-label">photo coming</span>
+          <div class="pick-img has-photo">
+            <img src="pics/book_alekhine.jpg" alt="Alekhine's Chess Games">
           </div>
           <div class="pick-info">
             <span class="pick-cat">Biography</span>
@@ -179,42 +156,42 @@
       <div class="categories-grid">
 
         <div class="cat-item" data-cat="biography">
-          <div class="cat-deckle">
-            <img src="pics/capa_contemplating.jpg" alt="Biography" class="cat-photo">
+          <div class="cat-frame">
+            <img src="pics/menchik_vintage.jpg" alt="Biography" class="cat-photo">
           </div>
           <span class="cat-label">Biography</span>
         </div>
 
         <div class="cat-item" data-cat="opening">
-          <div class="cat-deckle">
-            <img src="pics/mason.jpg" alt="Opening" class="cat-photo">
+          <div class="cat-frame">
+            <img src="pics/marshall.jpg" alt="Opening" class="cat-photo">
           </div>
           <span class="cat-label">Opening</span>
         </div>
 
         <div class="cat-item" data-cat="tournament">
-          <div class="cat-deckle">
+          <div class="cat-frame">
             <img src="pics/old_nezh_tal_1961.jpg" alt="Tournament" class="cat-photo">
           </div>
           <span class="cat-label">Tournament</span>
         </div>
 
         <div class="cat-item" data-cat="endgame">
-          <div class="cat-deckle">
-            <img src="pics/pillbury_steinitz_lasker.jpg" alt="Endgame" class="cat-photo">
+          <div class="cat-frame">
+            <img src="pics/pillsbury_steinitz_lasker_chigorin.jpg" alt="Endgame" class="cat-photo">
           </div>
           <span class="cat-label">Endgame</span>
         </div>
 
         <div class="cat-item" data-cat="tactics">
-          <div class="cat-deckle">
-            <img src="pics/chess-game700w.jpg" alt="Tactics" class="cat-photo">
+          <div class="cat-frame">
+            <img src="pics/euwe_vintage_0.jpg" alt="Tactics" class="cat-photo">
           </div>
           <span class="cat-label">Tactics</span>
         </div>
 
         <div class="cat-item" data-cat="miscellaneous">
-          <div class="cat-deckle">
+          <div class="cat-frame">
             <img src="pics/steinitz_and_others.jpg" alt="Miscellaneous" class="cat-photo">
           </div>
           <span class="cat-label">Miscellaneous</span>
@@ -238,6 +215,9 @@
         <button class="filter-btn" data-filter="tactics">Tactics</button>
         <button class="filter-btn" data-filter="miscellaneous">Miscellaneous</button>
       </div>
+      <div class="search-wrap">
+        <input type="search" id="book-search" class="book-search" placeholder="Search titles, authors, subjects, condition&hellip;" autocomplete="off" spellcheck="false">
+      </div>
       <div class="table-wrap">
         <table id="books-table">
           <thead>
@@ -258,6 +238,7 @@
           </tbody>
         </table>
       </div>
+      <div id="books-pagination"></div>
     </div>
   </section>
 
@@ -266,41 +247,53 @@
     <div class="books-inner">
       <p class="section-label">Beyond books</p>
       <h2>Other Chess Items</h2>
-      <div class="table-wrap">
-        <table id="items-table">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Description</th>
-              <th>Condition</th>
-              <th>Price</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="td-title"><div class="td-title-inner"><span>Antique Jaques &amp; Son Chess Set</span></div></td>
-              <td class="td-muted">Complete weighted Staunton set in original box, c.&thinsp;1890. King height 95&thinsp;mm. Minor wear consistent with age.</td>
-              <td class="td-muted">Very Good</td>
-              <td class="td-price">&euro;&thinsp;340</td>
-              <td><a href="mailto:bookzwang@proton.me?subject=Enquiry%3A%20Jaques%20Chess%20Set" class="inquire-link">Enquire</a></td>
-            </tr>
-            <tr>
-              <td class="td-title"><div class="td-title-inner"><span>Garde Pendulum Tournament Clock</span></div></td>
-              <td class="td-muted">West-German tournament clock, c.&thinsp;1965. Recently serviced, keeps accurate time. Original patina.</td>
-              <td class="td-muted">Good</td>
-              <td class="td-price">&euro;&thinsp;85</td>
-              <td><a href="mailto:bookzwang@proton.me?subject=Enquiry%3A%20Garde%20Clock" class="inquire-link">Enquire</a></td>
-            </tr>
-            <tr>
-              <td class="td-title"><div class="td-title-inner"><span>Fischer &mdash; <em>My 60 Memorable Games</em></span></div></td>
-              <td class="td-muted">First edition, 1969. Signed presentation copy on the title page. Light shelf wear to dust jacket.</td>
-              <td class="td-muted">Good</td>
-              <td class="td-price">&euro;&thinsp;650</td>
-              <td><a href="mailto:bookzwang@proton.me?subject=Enquiry%3A%20Fischer%20Signed" class="inquire-link">Enquire</a></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="items-grid">
+
+        <div class="item-card">
+          <div class="item-img">
+            <img src="pics/chess-game700w.jpg" alt="Antique Jaques chess set">
+          </div>
+          <div class="item-info">
+            <span class="item-condition">Very Good</span>
+            <h3 class="item-title">Antique Jaques &amp; Son Chess Set</h3>
+            <p class="item-desc">Complete weighted Staunton set in original box, c.&thinsp;1890. King height 95&thinsp;mm. Minor wear consistent with age.</p>
+            <div class="item-footer">
+              <span class="item-price">&euro;&thinsp;340</span>
+              <a href="mailto:bookzwang@proton.me?subject=Enquiry%3A%20Jaques%20Chess%20Set" class="inquire-link">Enquire</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img">
+            <img src="pics/chess_clock.jpg" alt="Garde pendulum tournament clock">
+          </div>
+          <div class="item-info">
+            <span class="item-condition">Good</span>
+            <h3 class="item-title">Garde Pendulum Tournament Clock</h3>
+            <p class="item-desc">West-German tournament clock, c.&thinsp;1965. Recently serviced, keeps accurate time. Original patina.</p>
+            <div class="item-footer">
+              <span class="item-price">&euro;&thinsp;85</span>
+              <a href="mailto:bookzwang@proton.me?subject=Enquiry%3A%20Garde%20Clock" class="inquire-link">Enquire</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img">
+            <img src="pics/old_man.jpg" alt="Fischer My 60 Memorable Games">
+          </div>
+          <div class="item-info">
+            <span class="item-condition">Good</span>
+            <h3 class="item-title">Fischer &mdash; <em>My 60 Memorable Games</em></h3>
+            <p class="item-desc">First edition, 1969. Signed presentation copy on the title page. Light shelf wear to dust jacket.</p>
+            <div class="item-footer">
+              <span class="item-price">&euro;&thinsp;650</span>
+              <a href="mailto:bookzwang@proton.me?subject=Enquiry%3A%20Fischer%20Signed" class="inquire-link">Enquire</a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -309,9 +302,9 @@
   <section id="contact">
     <div class="contact-inner">
       <p class="section-label">Get in touch</p>
-      <h2>Enquire</h2>
+      <h2>Let&rsquo;s talk books</h2>
       <div class="about-divider"></div>
-      <p class="contact-text">You see something you like — send an email. Mention the title and we will take it from there.</p>
+      <p class="contact-text">Seen something that caught your eye? Just send me an email — mention the title and I&rsquo;ll get back to you within a day. Happy to answer any questions about condition, edition, or shipping. No pressure, no hurry.</p>
       <a href="mailto:bookzwang@proton.me" class="contact-email">bookzwang@proton.me</a>
     </div>
   </section>
